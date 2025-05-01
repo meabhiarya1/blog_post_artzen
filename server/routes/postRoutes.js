@@ -6,8 +6,11 @@ import {
   getPosts,
   updatePost,
 } from "../controllers/postController.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 const router = Router();
+
+router.use(verifyToken);
 
 router.get("/", getPosts);
 router.get("/:id", getPostById);
