@@ -149,15 +149,24 @@ const PostTable = () => {
     {
       name: "Actions",
       cell: (row) => (
-        <div>
-          <EditIcon
-            className="editIcon"
-            onClick={() => openEditPostDialog(row)}
-          />
-          <DeleteIcon onClick={() => deletePost(row.id)} />
+        <div className="flex gap-4">
+          <button
+            onClick={() => openEditPostDialog(row)} // ✅ Corrected
+            className="text-blue-600 hover:text-blue-800 transition"
+            title="Edit"
+          >
+            <EditIcon className="text-xl" />
+          </button>
+          <button
+            onClick={() => deletePost(row.id)} // ✅ Corrected
+            className="text-red-600 hover:text-red-800 transition"
+            title="Delete"
+          >
+            <DeleteIcon className="text-xl" />
+          </button>
         </div>
       ),
-      width: "250px",
+      width: "200px",
     },
   ];
 
@@ -170,30 +179,33 @@ const PostTable = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center max-h-screen bg-gray-100 p-6">
-        <div className="w-full flex justify-end mb-5">
+      <div className="h-screen w-full flex flex-col items-center justify-start bg-gray-100 px-4 py-8 overflow-hidden">
+        {/* Header & Add Post Button */}
+        <div className="w-full max-w-6xl flex justify-end mb-6">
           <button
-            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition"
+            className="bg-indigo-600 text-white font-medium py-2 px-5 rounded-md shadow hover:bg-indigo-700 transition"
             onClick={openAddPostDialog}
           >
             Add Post
           </button>
         </div>
 
-        <div className="w-full max-w-8xl bg-white shadow-lg rounded-lg p-6">
+        {/* Data Table */}
+        <div className="w-full max-w-6xl flex-1 bg-white rounded-lg shadow-md p-6 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
           <DataTable
             data={dataItems}
             columns={columns}
             pagination
             highlightOnHover
             fixedHeader
-            fixedHeaderScrollHeight="calc(100vh - 252px)"
+            fixedHeaderScrollHeight="100%"
             onRowClicked={(post) => navigate(`/post-details/${post.id}`)}
           />
         </div>
 
+        {/* Dialog Modal */}
         <Dialog open={isModalOpen} onClose={closeDialog}>
-          <DialogTitle className="text-xl font-semibold text-gray-900">
+          <DialogTitle className="text-2xl font-bold text-gray-800">
             {dialogInfo.title}
           </DialogTitle>
           <DialogContent>
@@ -202,10 +214,9 @@ const PostTable = () => {
                 e.preventDefault();
                 handleFormSubmit(postFormData);
               }}
-              className="space-y-4"
+              className="space-y-5 mt-4"
             >
               <TextField
-                margin="dense"
                 label="Title"
                 type="text"
                 fullWidth
@@ -216,7 +227,6 @@ const PostTable = () => {
                 }
               />
               <TextField
-                margin="dense"
                 label="Content"
                 type="text"
                 fullWidth
@@ -227,7 +237,6 @@ const PostTable = () => {
                 }
               />
               <TextField
-                margin="dense"
                 label="Author Name"
                 type="text"
                 fullWidth
@@ -239,13 +248,16 @@ const PostTable = () => {
               />
             </form>
           </DialogContent>
-          <DialogActions className="p-4">
-            <Button onClick={closeDialog} className="text-red-500">
+          <DialogActions className="px-6 pb-6">
+            <Button
+              onClick={closeDialog}
+              className="text-red-600 hover:text-red-800 font-medium"
+            >
               Cancel
             </Button>
             <Button
               onClick={() => handleFormSubmit(postFormData)}
-              className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
+              className="bg-green-500 text-white font-medium px-4 py-2 rounded-md shadow hover:bg-green-600 transition"
             >
               {dialogInfo.buttonLabel}
             </Button>
