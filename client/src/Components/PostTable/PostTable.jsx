@@ -71,15 +71,11 @@ const PostTable = () => {
 
   const addPost = async (data) => {
     try {
-      const response = await axios.post(
-        `${apiUrl}/api/v1/posts`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
+      const response = await axios.post(`${apiUrl}/api/v1/posts`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
-        data
-      );
+      });
       if (response) {
         fetchPosts();
         closeDialog();
@@ -94,12 +90,12 @@ const PostTable = () => {
     try {
       const response = await axios.patch(
         `${apiUrl}/api/v1/posts/${data.id}`,
+        data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
-        },
-        data
+        }
       );
       fetchPosts();
       closeDialog();
