@@ -8,7 +8,6 @@ const withAuthProtection = (WrappedComponent) => {
 
     useEffect(() => {
       const token = localStorage.getItem("authToken");
-
       if (!token) {
         navigate("/login", { replace: true });
       } else {
@@ -19,7 +18,6 @@ const withAuthProtection = (WrappedComponent) => {
     if (isCheckingAuth) {
       return <div>Loading...</div>;
     }
-
     return <WrappedComponent {...props} />;
   };
 
