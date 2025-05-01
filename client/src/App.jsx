@@ -1,8 +1,8 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import PostTable from "./Components/PostTable/PostTable";
-import { PostDetails } from "./Components/post-details/PostDetails";
-import { Navbar } from "./Components/Navbar/Navbar";
+import PostTable from "./Componenets/PostTable/PostTable";
+import { PostDetails } from "./Componenets/PostDetails/PostDetails";
+import { Navbar } from "./Componenets/Navbar/Navbar";
 // import Navbar from "./Components/Navbar/Navbar";
 // import PostTable from "./PostTable/PostTable";
 
