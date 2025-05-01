@@ -4,6 +4,7 @@ import cors from "cors";
 import postRouter from "./routes/postRoutes.js";
 import authRouter from "./routes/authRoutes.js";
 
+
 const app = express();
 
 const corsOptions = {

@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
-
-const JWT_SECRET =process.env.JWT_SECRET
+import dotenv from "dotenv";
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -29,13 +30,14 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ error: "User not found" });
-
+    console.log(user);
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(401).json({ error: "Invalid credentials" });
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
       expiresIn: "1d",
     });
+
     res.status(200).json({ message: "Login successful", token });
   } catch (err) {
     res.status(500).json({ error: err.message });

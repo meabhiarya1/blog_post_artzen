@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    localStorage.setItem("authToken", "fake_token_123");
-    navigate("/");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const token = response.data.token;
+      localStorage.setItem("authToken", token);
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.error || "Something went wrong during login.";
+      toast.error(errorMsg);
+    }
   };
 
   useEffect(() => {
@@ -32,7 +52,7 @@ const Login = () => {
             Welcome Back
           </h2>
           <p className="mt-4 text-center text-gray-400">Sign in to continue</p>
-          <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-6">
+          <form onSubmit={handleLogin} className="mt-8 space-y-6">
             <div className="rounded-md shadow-sm">
               <div className="mb-4">
                 <input
@@ -66,7 +86,6 @@ const Login = () => {
               <button
                 className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-gray-900 bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 type="submit"
-                onClick={handleLogin}
               >
                 Sign In
               </button>
