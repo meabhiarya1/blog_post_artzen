@@ -32,3 +32,4 @@ This is a full-stack blogging platform built with React, Node.js, Express.js, an
 * Sign up for an account and log in to create and manage your own blog posts
 
 ## Deployed Link
+https://blog-post-artzen-pro.onrender.com/
