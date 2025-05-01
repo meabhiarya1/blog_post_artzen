@@ -1,16 +1,13 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import PostTable from "./Componenets/PostTable/PostTable";
-import { PostDetails } from "./Componenets/PostDetails/PostDetails";
-import { Navbar } from "./Componenets/Navbar/Navbar";
-// import Navbar from "./Components/Navbar/Navbar";
-// import PostTable from "./PostTable/PostTable";
+import PostTable from "./Components/PostTable/PostTable";
+import { PostDetails } from "./Components/PostDetails/PostDetails";
+import { Navbar } from "./Components/Navbar/Navbar";
 
 function App() {
   const Layout = () => {
     return (
       <div className="box-border">
-        {/* Main Content Container */}
         <Navbar />
         <div>
           <Outlet />
@@ -34,26 +31,6 @@ function App() {
         },
       ],
     },
-    // {
-    //   path: "/login",
-    //   element: (
-    //     <AuthGuard>
-    //       <Login />
-    //     </AuthGuard>
-    //   ),
-    // },
-    // {
-    //   path: "/signup",
-    //   element: (
-    //     <AuthGuard>
-    //       <Signup />
-    //     </AuthGuard>
-    //   ),
-    // },
-    // {
-    //   path: "/forgotPassword/:token",
-    //   element: <ForgotPassword />,
-    // },
   ]);
 
   return <RouterProvider router={router} />;
