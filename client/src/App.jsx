@@ -1,11 +1,11 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
 import PostTable from "./Components/PostTable/PostTable";
 import { PostDetails } from "./Components/PostDetails/PostDetails";
 import { Navbar } from "./Components/Navbar/Navbar";
 import Login from "./Components/Auth/Login";
 import withAuthProtection from "./hoc/withAuthProtection";
+import Signup from "./Components/Auth/Signup";
 
 function App() {
   const Layout = () => (
@@ -38,6 +38,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
     },
   ]);
 
