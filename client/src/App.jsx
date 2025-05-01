@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import PostTable from "./Components/PostTable/PostTable";
+import { PostDetails } from "./Components/post-details/PostDetails";
+import { Navbar } from "./Components/Navbar/Navbar";
+// import Navbar from "./Components/Navbar/Navbar";
+// import PostTable from "./PostTable/PostTable";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const Layout = () => {
+    return (
+      <div className="box-border">
+        {/* Main Content Container */}
+        <Navbar />
+        <div>
+          <Outlet />
+        </div>
+      </div>
+    );
+  };
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className='bg-red-500'>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <PostTable />,
+        },
+        {
+          path: "/post-details/:id",
+          element: <PostDetails />,
+        },
+      ],
+    },
+    // {
+    //   path: "/login",
+    //   element: (
+    //     <AuthGuard>
+    //       <Login />
+    //     </AuthGuard>
+    //   ),
+    // },
+    // {
+    //   path: "/signup",
+    //   element: (
+    //     <AuthGuard>
+    //       <Signup />
+    //     </AuthGuard>
+    //   ),
+    // },
+    // {
+    //   path: "/forgotPassword/:token",
+    //   element: <ForgotPassword />,
+    // },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
