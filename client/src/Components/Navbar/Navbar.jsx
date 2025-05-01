@@ -2,8 +2,8 @@ import React from "react";
 
 export const Navbar = () => {
   const handleLogout = () => {
-    // TODO: Implement logout logic (e.g. clearing tokens, redirect)
-    console.log("Logged out");
+    localStorage.removeItem("authToken");
+    window.location.href = "/login"; // or use navigate()
   };
 
   return (
@@ -20,4 +20,3 @@ export const Navbar = () => {
     </nav>
   );
 };
-
