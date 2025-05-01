@@ -26,7 +26,11 @@ const PostTable = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/v1/posts`);
+      const response = await axios.get(`${apiUrl}/api/v1/posts`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -53,7 +57,11 @@ const PostTable = () => {
 
   const deletePost = async (id) => {
     try {
-      const response = await axios.delete(`${apiUrl}/api/v1/posts/${id}`);
+      const response = await axios.delete(`${apiUrl}/api/v1/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
       fetchPosts();
       toast.success(response.data.message);
     } catch (error) {
@@ -63,7 +71,15 @@ const PostTable = () => {
 
   const addPost = async (data) => {
     try {
-      const response = await axios.post(`${apiUrl}/api/v1/posts`, data);
+      const response = await axios.post(
+        `${apiUrl}/api/v1/posts`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        },
+        data
+      );
       if (response) {
         fetchPosts();
         closeDialog();
@@ -78,6 +94,11 @@ const PostTable = () => {
     try {
       const response = await axios.patch(
         `${apiUrl}/api/v1/posts/${data.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        },
         data
       );
       fetchPosts();

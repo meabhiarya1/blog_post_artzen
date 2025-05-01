@@ -11,13 +11,16 @@ export const PostDetails = () => {
   useEffect(() => {
     async function fetchPostDetails() {
       try {
-        const response = await axios.get(`${apiUrl}/api/v1/posts/${id}`);
+        const response = await axios.get(`${apiUrl}/api/v1/posts/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
         setPostDetails(response.data);
       } catch (error) {
         console.error("Error fetching post details:", error);
       }
     }
-
     fetchPostDetails();
   }, [id]);
 
@@ -44,4 +47,3 @@ export const PostDetails = () => {
     </div>
   );
 };
-
