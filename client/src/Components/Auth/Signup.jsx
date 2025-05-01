@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,10 +19,23 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("authToken", "fake_token_123"); // Simulate signup
-    navigate("/");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        formData
+      );
+
+      toast.success("Signup successful!");
+      navigate("/login");
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.error || "Something went wrong during signup.";
+      toast.error(errorMsg);
+    }
   };
 
   useEffect(() => {
