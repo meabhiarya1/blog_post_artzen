@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-
 import {
   Button,
   Dialog,
@@ -118,7 +117,6 @@ const PostTable = () => {
       toast.error("Author is required");
       return;
     }
-
     isAddMode ? addPost(data) : updatePost(data);
   };
 
@@ -133,33 +131,36 @@ const PostTable = () => {
       selector: (row) => row.title,
       sortable: true,
       width: "270px",
+      cursor: "pointer",
     },
     {
       name: "Content",
       selector: (row) => row.content,
       sortable: true,
       width: "350px",
+      cursor: "pointer",
     },
     {
       name: "Author",
       selector: (row) => row.author,
       sortable: true,
       width: "250px",
+      cursor: "pointer",
     },
     {
       name: "Actions",
       cell: (row) => (
         <div className="flex gap-4">
           <button
-            onClick={() => openEditPostDialog(row)} // ✅ Corrected
-            className="text-blue-600 hover:text-blue-800 transition"
+            onClick={() => openEditPostDialog(row)}
+            className="text-blue-600 hover:text-blue-800 transition cursor-pointer"
             title="Edit"
           >
             <EditIcon className="text-xl" />
           </button>
           <button
-            onClick={() => deletePost(row.id)} // ✅ Corrected
-            className="text-red-600 hover:text-red-800 transition"
+            onClick={() => deletePost(row.id)}
+            className="text-red-600 hover:text-red-800 transition cursor-pointer"
             title="Delete"
           >
             <DeleteIcon className="text-xl" />
@@ -180,17 +181,15 @@ const PostTable = () => {
   return (
     <>
       <div className="h-screen w-full flex flex-col items-center justify-start bg-gray-100 px-4 py-8 overflow-hidden">
-        {/* Header & Add Post Button */}
         <div className="w-full max-w-6xl flex justify-end mb-6">
           <button
-            className="bg-indigo-600 text-white font-medium py-2 px-5 rounded-md shadow hover:bg-indigo-700 transition"
+            className="bg-indigo-600 text-white font-medium py-2 px-5 rounded-md shadow hover:bg-indigo-700 transition cursor-pointer"
             onClick={openAddPostDialog}
           >
             Add Post
           </button>
         </div>
 
-        {/* Data Table */}
         <div className="w-full max-w-6xl flex-1 bg-white rounded-lg shadow-md p-6 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
           <DataTable
             data={dataItems}
@@ -203,7 +202,6 @@ const PostTable = () => {
           />
         </div>
 
-        {/* Dialog Modal */}
         <Dialog open={isModalOpen} onClose={closeDialog}>
           <DialogTitle className="text-3xl font-bold text-gray-800 text-center w-[500px]">
             {dialogInfo.title}
@@ -248,7 +246,7 @@ const PostTable = () => {
               />
             </form>
           </DialogContent>
-          <DialogActions className="px-6 pb-6 ">
+          <DialogActions className="px-6 pb-6">
             <Button
               onClick={closeDialog}
               className="text-red-600 hover:text-red-800 font-medium cursor-pointer px-4 py-2 rounded-md shadow transition"
