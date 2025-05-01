@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const withAuthProtection = (WrappedComponent) => {
   const AuthenticatedComponent = (props) => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("authToken");
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
     useEffect(() => {
+      const token = localStorage.getItem("authToken");
+
       if (!token) {
         navigate("/login", { replace: true });
+      } else {
+        setIsCheckingAuth(false);
       }
-    }, [token, navigate]);
+    }, [navigate]);
 
-    if (!token) {
-      return null; // or a loading spinner
+    if (isCheckingAuth) {
+      return <div>Loading...</div>;
     }
 
     return <WrappedComponent {...props} />;
