@@ -45,4 +45,3 @@ export const PostDetails = () => {
   );
 };
 
-export default PostDetails;
